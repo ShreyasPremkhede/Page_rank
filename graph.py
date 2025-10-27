@@ -1,7 +1,6 @@
 import os
 import json
 import networkx as nx
-from collections import deque
 import pickle
 
 MIN_CITATIONS = 60
