@@ -1,0 +1,11 @@
+S.No.	Score	Title A	Title B
+1.	43	Salient Object Detection: A Benchmark	Salient Object Detection: A Survey
+2.	40	Software-Defined Networking: A Comprehensive Survey	A Survey and a Layered Taxonomy of Software-Defined Networking
+3.	40	Security in Software Defined Networks: A Survey	Software-Defined Networking: A Comprehensive Survey
+4.	38	Design Guidelines for Spatial Modulation	Spatial Modulation for Generalized MIMO: Challenges, Opportunities, and Implementation
+5.	37	Software-Defined Networking: A Comprehensive Survey	A Survey on Software-Defined Networking
+6.	37	Urban Computing: Concepts, Methodologies, and Applications	Trajectory Data Mining: An Overview
+7.	34	Salient Object Detection: A Survey	Salient Object Detection: A Discriminative Regional Feature Integration Approach
+8.	33	A survey on information visualization: recent advances and challenges	A Survey of Visual Analytics Techniques and Applications: State-of-the-Art Research and Future Challenges
+9.	32	Deep learning of representations: looking forward	Representation Learning: A Review and New Perspectives
+10.	32	Deep Learning: Methods and Applications	Representation Learning: A Review and New Perspectives
