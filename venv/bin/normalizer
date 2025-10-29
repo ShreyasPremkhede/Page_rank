@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 #!/bin/sh
 '''exec' "/media/shravan/Coding/7th Semester/Data Mining/Assignment 2/Page_rank/venv/bin/python" "$0" "$@"
 ' '''
+=======
+#!/home/uttam/Desktop/data_mining/Page_rank/venv/bin/python
+>>>>>>> 8a9d12c0ee783d7a53e9458c9d60d4c6e217e7da
 import sys
 from charset_normalizer.cli import cli_detect
 if __name__ == '__main__':
