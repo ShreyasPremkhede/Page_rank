@@ -78,7 +78,7 @@ def main():
     top_coc = top_k_from_counter(cocounts, 10)
     # print_top("Top-10 Similar Papers based on Co-citation Score", top_coc, G)
     # save the results to a file
-    output_path = os.path.join(base, "top_co_citation.txt")
+    output_path = os.path.join(base, "results_ex2/top_co_citation.txt")
     print(f"Saving co-citation results to: {output_path}")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("S.No.\tScore\tTitle A\tTitle B\n")
@@ -93,7 +93,7 @@ def main():
     bibcounts = compute_bibliographic_coupling(G)
     top_bib = top_k_from_counter(bibcounts, 10)
     # print_top("Top-10 Similar Papers based on Bibliographic Coupling Score", top_bib, G)
-    output_path = os.path.join(base, "top_bibliographic_coupling.txt")
+    output_path = os.path.join(base, "results_ex2/top_bibliographic_coupling.txt")
     print(f"Saving bibliographic coupling results to: {output_path}")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("S.No.\tScore\tTitle A\tTitle B\n")
