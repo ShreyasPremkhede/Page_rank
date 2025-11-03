@@ -1,11 +1,11 @@
 Title,PageRank Score
-LIBSVM: A library for support vector machines,0.008924685475614199
-Fast and Scalable Local Kernel Machines,0.007272500091059913
-The Pascal Visual Object Classes (VOC) Challenge,0.004481773152370228
-Factored Shapes and Appearances for Parts-based Object Understanding,0.00390998445465063
-Object Detection with Discriminatively Trained Part-Based Models,0.002628202452360039
-ClassCut for unsupervised class segmentation,0.0021933732554096376
-Community detection in graphs,0.001018201648154771
-A Singular Value Thresholding Algorithm for Matrix Completion,0.0009593103482650309
-TwitterRank: finding topic-sensitive influential twitterers,0.0009480860971216271
-Guaranteed Minimum-Rank Solutions of Linear Matrix Equations via Nuclear Norm Minimization,0.0009030267287801674
+LIBSVM: A library for support vector machines,0.008941820470157116
+Fast and Scalable Local Kernel Machines,0.0072862210418053455
+The Pascal Visual Object Classes (VOC) Challenge,0.0045110582525706155
+Factored Shapes and Appearances for Parts-based Object Understanding,0.003932543310760952
+Object Detection with Discriminatively Trained Part-Based Models,0.0026582045476941573
+ClassCut for unsupervised class segmentation,0.002200663832923477
+Community detection in graphs,0.0010196805287707052
+A Singular Value Thresholding Algorithm for Matrix Completion,0.000945367136655117
+TwitterRank: finding topic-sensitive influential twitterers,0.0009404073629204842
+"Random Walks, Markov Processes and the Multiscale Modular Organization of Complex Networks",0.0009032966874671127
