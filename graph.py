@@ -3,24 +3,23 @@ import json
 import networkx as nx
 import pickle
 
+# Configuration parameters
 MIN_CITATIONS = 60
 START_YEAR = 2010
 END_YEAR = 2015
 
+# Builds the citation graph based on the specified criteria
 def build_citation_graph(data_directory, min_citations, start_year, end_year):
     qualified_papers = {}
     json_files_to_process = [os.path.join(data_directory, f) for f in 
                              ["dblp-ref-0.json", "dblp-ref-1.json", "dblp-ref-2.json", "dblp-ref-3.json"]]
-
     for f_path in json_files_to_process:
         if not os.path.exists(f_path):
             print(f"Error: Data file '{f_path}' not found.")
             print(f"Please check the path in the DATA_DIR variable.")
             return None
-
     print(f"\nIdentifying qualified papers and titles:")
     print(f"Criteria: >= {min_citations} citations and year between {start_year}-{end_year}")
-    
     total_line_count = 0
     for json_file in json_files_to_process:
         print(f"Processing file: {os.path.basename(json_file)}")
@@ -41,7 +40,6 @@ def build_citation_graph(data_directory, min_citations, start_year, end_year):
                             n_citation >= min_citations and
                             start_year <= year <= end_year):
                             qualified_papers[paper_id] = paper.get("title", "No Title Available")
-                            
                     except json.JSONDecodeError:
                         print(f"\nWarning: Skipping malformed JSON line {total_line_count}")
                         e = 1
@@ -58,13 +56,22 @@ def build_citation_graph(data_directory, min_citations, start_year, end_year):
         return None
 
     print(f"\nFound {len(qualified_papers):,} qualified papers out of {total_line_count:,} total papers.")
-
     print("\nBuilding graph:")
     G = nx.DiGraph()
     
-    # Add all qualified papers as nodes first, with their title attribute
+    title_to_rep = {}
+    id_to_rep = {}
     for paper_id, title in qualified_papers.items():
-        G.add_node(paper_id, title=title)
+        norm_title = title.strip().lower() if title else "<EMPTY_TITLE>"
+        if norm_title == "":
+            norm_title = "<EMPTY_TITLE>"
+        # Remove duplicate nodes based on title
+        if norm_title not in title_to_rep:
+            title_to_rep[norm_title] = paper_id
+            id_to_rep[paper_id] = paper_id
+            G.add_node(paper_id, title=title)
+        else:
+            id_to_rep[paper_id] = title_to_rep[norm_title]
     
     total_line_count = 0
     edge_count = 0
@@ -75,20 +82,22 @@ def build_citation_graph(data_directory, min_citations, start_year, end_year):
             with open(json_file, 'r', encoding='utf-8') as f:
                 for line in f:
                     total_line_count += 1
-                    
-                    
                     try:
                         if not line.strip():
                             continue
                         paper = json.loads(line)
                         source_id = paper.get("id")
-                        
+                        # Only consider edges from qualified papers
                         if source_id in qualified_papers:
                             references = paper.get("references", [])
                             for target_id in references:
-                                if target_id in qualified_papers:
-                                    G.add_edge(source_id, target_id)
-                                    edge_count += 1
+                                    if target_id in qualified_papers:
+                                        src_rep = id_to_rep.get(source_id, source_id)
+                                        tgt_rep = id_to_rep.get(target_id, target_id)
+                                        if src_rep == tgt_rep:
+                                            continue
+                                        G.add_edge(src_rep, tgt_rep)
+                                        edge_count += 1
                     except json.JSONDecodeError:
                         e = 1
                         pass
@@ -99,17 +108,16 @@ def build_citation_graph(data_directory, min_citations, start_year, end_year):
         except Exception as e:
             print(f"\nAn error occurred during Pass 2 on {json_file}: {e}")
             return None
-
     print(f"\nGraph built with {G.number_of_nodes():,} nodes and {G.number_of_edges():,} edges.")
     return G
 
+# Reporting the statistics of the graph
 def report_statistics(G):
     if G is None or G.number_of_nodes() == 0:
         print("Graph is empty. No statistics to report.")
         return
 
     print("\nGraph Statistics Report ")
-    
     num_nodes = G.number_of_nodes()
     print(f"Number of vertices (nodes): {num_nodes:,}")
     num_edges = G.number_of_edges()
@@ -138,8 +146,7 @@ def report_statistics(G):
         largest_scc_nodes = max(scc_list, key=len)
         num_nodes_largest_scc = len(largest_scc_nodes)
         print(f"Number of nodes in largest SCC: {num_nodes_largest_scc:,}")
-
-        # 8. Number of edges in largest SCC
+        # Number of edges in largest SCC
         largest_scc_graph = G.subgraph(largest_scc_nodes)
         num_edges_largest_scc = largest_scc_graph.number_of_edges()
         print(f"Number of edges in largest SCC: {num_edges_largest_scc:,}")
@@ -148,10 +155,10 @@ def report_statistics(G):
         print("Number of edges in largest SCC: 0")
 
 
-
+# Main function to execute the graph building and reporting
+# Make sure to have the data files in the specified DATA_DIR
 def main():
     DATA_DIR = "./dblp.v10/dblp-ref"
-    
     graph_file = "dblp_filtered_graph.gpickle"
     
     if os.path.exists(graph_file):
@@ -171,6 +178,7 @@ def main():
             END_YEAR
         )
     
+        # Save the graph for future use in a pickle file
         if G:
             with open(graph_file, 'wb') as f:
                 pickle.dump(G, f, pickle.HIGHEST_PROTOCOL)
