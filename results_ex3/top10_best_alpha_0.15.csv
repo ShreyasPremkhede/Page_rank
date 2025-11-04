@@ -1,11 +1,11 @@
 Title,PageRank Score
-LIBSVM: A library for support vector machines,0.0008492516761594749
-The Pascal Visual Object Classes (VOC) Challenge,0.000275899323865984
-Object Detection with Discriminatively Trained Part-Based Models,0.0002238476922347368
-Community detection in graphs,0.00016025720740856945
-Fast and Scalable Local Kernel Machines,0.00014644344133961284
-"What is Twitter, a social network or a news media?",0.00014013695376864028
-Reducibility Among Combinatorial Problems,0.00012851168991295564
-Talking about tactile experiences,0.00010884879915737833
-ImageNet Classification with Deep Convolutional Neural Networks,0.00010289083064672755
-KEGG for representation and analysis of molecular networks involving diseases and drugs.,0.0001000928701416623
+LIBSVM: A library for support vector machines,0.0008480384707288259
+The Pascal Visual Object Classes (VOC) Challenge,0.0002749087888891752
+Object Detection with Discriminatively Trained Part-Based Models,0.00022282482210795576
+Community detection in graphs,0.00016004045235655222
+Fast and Scalable Local Kernel Machines,0.00014621507554935277
+"What is Twitter, a social network or a news media?",0.00014266793359857892
+Reducibility Among Combinatorial Problems,0.00013087514763233352
+Talking about tactile experiences,0.00011012532582371318
+ImageNet Classification with Deep Convolutional Neural Networks,0.0001025815265502078
+KEGG for representation and analysis of molecular networks involving diseases and drugs.,9.980343076156599e-05
