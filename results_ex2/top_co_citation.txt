@@ -1,11 +1,11 @@
 S.No.	Score	Title A	Title B
-1.	153	Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation	ImageNet Classification with Deep Convolutional Neural Networks
-2.	147	The Pascal Visual Object Classes (VOC) Challenge	Object Detection with Discriminatively Trained Part-Based Models
-3.	95	Very Deep Convolutional Networks for Large-Scale Image Recognition	ImageNet Classification with Deep Convolutional Neural Networks
-4.	91	Caffe: Convolutional Architecture for Fast Feature Embedding	ImageNet Classification with Deep Convolutional Neural Networks
-5.	90	DeCAF: A Deep Convolutional Activation Feature for Generic Visual Recognition	ImageNet Classification with Deep Convolutional Neural Networks
-6.	85	Visualizing and Understanding Convolutional Networks	ImageNet Classification with Deep Convolutional Neural Networks
-7.	84	OverFeat: Integrated Recognition, Localization and Detection using Convolutional Networks	ImageNet Classification with Deep Convolutional Neural Networks
-8.	75	Very Deep Convolutional Networks for Large-Scale Image Recognition	Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation
-9.	73	Going deeper with convolutions	ImageNet Classification with Deep Convolutional Neural Networks
-10.	70	Scaling Up MIMO: Opportunities and Challenges with Very Large Arrays	Noncooperative Cellular Wireless with Unlimited Numbers of Base Station Antennas
+1.	154	Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation	ImageNet Classification with Deep Convolutional Neural Networks
+2.	148	The Pascal Visual Object Classes (VOC) Challenge	Object Detection with Discriminatively Trained Part-Based Models
+3.	122	Real-time human pose recognition in parts from single depth images	Real-time human pose recognition in parts from single depth images
+4.	95	Very Deep Convolutional Networks for Large-Scale Image Recognition	ImageNet Classification with Deep Convolutional Neural Networks
+5.	91	DeCAF: A Deep Convolutional Activation Feature for Generic Visual Recognition	ImageNet Classification with Deep Convolutional Neural Networks
+6.	91	Caffe: Convolutional Architecture for Fast Feature Embedding	ImageNet Classification with Deep Convolutional Neural Networks
+7.	85	OverFeat: Integrated Recognition, Localization and Detection using Convolutional Networks	ImageNet Classification with Deep Convolutional Neural Networks
+8.	85	Visualizing and Understanding Convolutional Networks	ImageNet Classification with Deep Convolutional Neural Networks
+9.	75	Very Deep Convolutional Networks for Large-Scale Image Recognition	Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation
+10.	73	Going deeper with convolutions	ImageNet Classification with Deep Convolutional Neural Networks
