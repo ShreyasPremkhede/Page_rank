@@ -35,7 +35,6 @@ def build_citation_graph(data_directory, min_citations, start_year, end_year):
                         n_citation = paper.get("n_citation", 0)
                         year = paper.get("year", 0)
                         paper_id = paper.get("id")
-                        
                         if (paper_id and n_citation >= min_citations and start_year <= year <= end_year):
                             qualified_papers[paper_id] = paper.get("title")
                     except json.JSONDecodeError:
@@ -57,7 +56,6 @@ def build_citation_graph(data_directory, min_citations, start_year, end_year):
     # Add all qualified papers as nodes
     for paper_id, title in qualified_papers.items():
         G.add_node(paper_id, title=title)
-    
     total_line_count = 0
     edge_count = 0
     for json_file in json_files_to_process:
@@ -132,19 +130,18 @@ def report_statistics(G):
         print("Number of nodes in largest SCC: 0")
         print("Number of edges in largest SCC: 0")
 
-
 # Main function to execute the graph building and reporting
 # Make sure to have the data files in the specified DATA_DIR
 def main():
     DATA_DIR = "./dblp.v10/dblp-ref"
     graph_file = "dblp_filtered_graph.gpickle"
     if os.path.exists(graph_file):
-        print(f"Found existing graph file '{graph_file}'. Loading it")
+        print(f"Found existing graph file '{graph_file}'. Loading it") 
         with open(graph_file, 'rb') as f:
-            G = pickle.load(f)    
+            G = pickle.load(f)  
         print(f"Graph loaded: {G.number_of_nodes():,} nodes, {G.number_of_edges():,} edges.")
     else:
-        print(f"Graph file '{graph_file}' not found. Hence building graph from scratch.")
+        print(f"Graph file '{graph_file}' not found. Hence building graph from scratch.") 
         G = build_citation_graph(
             DATA_DIR, 
             MIN_CITATIONS, 
