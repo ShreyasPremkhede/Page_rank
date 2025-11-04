@@ -36,10 +36,8 @@ def build_citation_graph(data_directory, min_citations, start_year, end_year):
                         year = paper.get("year", 0)
                         paper_id = paper.get("id")
                         
-                        if (paper_id and
-                            n_citation >= min_citations and
-                            start_year <= year <= end_year):
-                            qualified_papers[paper_id] = paper.get("title", "No Title Available")
+                        if (paper_id and n_citation >= min_citations and start_year <= year <= end_year):
+                            qualified_papers[paper_id] = paper.get("title")
                     except json.JSONDecodeError:
                         print(f"\nWarning: Skipping malformed JSON line {total_line_count}")
                         e = 1
@@ -50,28 +48,15 @@ def build_citation_graph(data_directory, min_citations, start_year, end_year):
         except Exception as e:
             print(f"\nAn error occurred during identifying qualified papers on {json_file}: {e}")
             return None
-
     if not qualified_papers:
         print("\nNo papers matched the criteria.")
         return None
-
     print(f"\nFound {len(qualified_papers):,} qualified papers out of {total_line_count:,} total papers.")
     print("\nBuilding graph:")
     G = nx.DiGraph()
-    
-    title_to_rep = {}
-    id_to_rep = {}
+    # Add all qualified papers as nodes
     for paper_id, title in qualified_papers.items():
-        norm_title = title.strip().lower() if title else "<EMPTY_TITLE>"
-        if norm_title == "":
-            norm_title = "<EMPTY_TITLE>"
-        # Remove duplicate nodes based on title
-        if norm_title not in title_to_rep:
-            title_to_rep[norm_title] = paper_id
-            id_to_rep[paper_id] = paper_id
-            G.add_node(paper_id, title=title)
-        else:
-            id_to_rep[paper_id] = title_to_rep[norm_title]
+        G.add_node(paper_id, title=title)
     
     total_line_count = 0
     edge_count = 0
@@ -91,13 +76,9 @@ def build_citation_graph(data_directory, min_citations, start_year, end_year):
                         if source_id in qualified_papers:
                             references = paper.get("references", [])
                             for target_id in references:
-                                    if target_id in qualified_papers:
-                                        src_rep = id_to_rep.get(source_id, source_id)
-                                        tgt_rep = id_to_rep.get(target_id, target_id)
-                                        if src_rep == tgt_rep:
-                                            continue
-                                        G.add_edge(src_rep, tgt_rep)
-                                        edge_count += 1
+                                if target_id in qualified_papers:
+                                    G.add_edge(source_id, target_id)
+                                    edge_count += 1
                     except json.JSONDecodeError:
                         e = 1
                         pass
@@ -116,7 +97,6 @@ def report_statistics(G):
     if G is None or G.number_of_nodes() == 0:
         print("Graph is empty. No statistics to report.")
         return
-
     print("\nGraph Statistics Report ")
     num_nodes = G.number_of_nodes()
     print(f"Number of vertices (nodes): {num_nodes:,}")
@@ -130,7 +110,6 @@ def report_statistics(G):
     scc_list = list(scc_generator)
     num_scc = len(scc_list)
     print(f"Number of strongly connected components (SCC): {num_scc:,}")
-
     if num_wcc > 0:
         largest_wcc_nodes = max(wcc_list, key=len)
         num_nodes_largest_wcc = len(largest_wcc_nodes)
@@ -141,7 +120,6 @@ def report_statistics(G):
     else:
         print("Number of nodes in largest WCC: 0")
         print("Number of edges in largest WCC: 0")
-
     if num_scc > 0:
         largest_scc_nodes = max(scc_list, key=len)
         num_nodes_largest_scc = len(largest_scc_nodes)
@@ -160,24 +138,19 @@ def report_statistics(G):
 def main():
     DATA_DIR = "./dblp.v10/dblp-ref"
     graph_file = "dblp_filtered_graph.gpickle"
-    
     if os.path.exists(graph_file):
         print(f"Found existing graph file '{graph_file}'. Loading it")
-        
         with open(graph_file, 'rb') as f:
-            G = pickle.load(f) 
-            
+            G = pickle.load(f)    
         print(f"Graph loaded: {G.number_of_nodes():,} nodes, {G.number_of_edges():,} edges.")
     else:
         print(f"Graph file '{graph_file}' not found. Hence building graph from scratch.")
-        
         G = build_citation_graph(
             DATA_DIR, 
             MIN_CITATIONS, 
             START_YEAR, 
             END_YEAR
         )
-    
         # Save the graph for future use in a pickle file
         if G:
             with open(graph_file, 'wb') as f:
